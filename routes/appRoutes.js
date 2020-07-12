@@ -25,36 +25,28 @@ router.get('/read',(req,res,next) => {
          res.status(500).json({errmsg: err});
       }
       else {
-         console.log('inside else read')
          res.status(200).json({msg: countries});
-         console.log('readd countries',countries)
       }
    });
- 
-   res.status(200).json({msg : 'Get request is working' });
-})
+ })
 
 router.put('/update',(req,res,next) => {
    Country.findById(req.body._id,(err,country) => {
       if(err) {
          res.status(500).json({errmsg: err});
-         country.name = req.body.name;
-         country.capital = req.body.capital; 
-         country.save((err,country) => {
-            if(err) {
-               res.status(500).json({errmsg: err});
-            }
-            else {
-               res.status(200).json({msg: country});
-            }
-         });
+      }
+      country.name = req.body.name;
+      country.capital = req.body.capital; 
+      country.save((err,country) => {
+      if(err) {
+         res.status(500).json({errmsg: err});
       }
       else {
-         res.status(200).json({msg: countries});
-      }   
+         res.status(200).json({msg: country});
+      }
+   });
    })
-   res.status(200).json({msg : 'Put request is working' });
-});
+ });
 
 router.delete('/delete/:id',(req,res,next) => {
    Country.findOneAndRemove({_id: req.params.id},(err,country) => {
@@ -65,7 +57,6 @@ router.delete('/delete/:id',(req,res,next) => {
          res.status(200).json({msg: country});
       }   
    })
-   res.status(200).json({msg : 'Delete request is working' });
 })
 
 module.exports = router;
