@@ -5,7 +5,7 @@ var app = express();
 var appRoutes = require('./routes/appRoutes');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
+var cors = require('cors');
 
 //mongoose.connect('mongodb://localhost/meanDb');
 mongoose.connect('mongodb://localhost/meanDb',{
@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/meanDb',{
 });
 
 
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/',appRoutes)
